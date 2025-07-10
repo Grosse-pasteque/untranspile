@@ -19,7 +19,7 @@ const args = minimist(process.argv.slice(2), {
 
 const inputFile = args._[0];
 if (!inputFile) {
-    console.error('Usage: node babel-reverse input.js [-o output.js] [-p plugin1,plugin2,...]');
+    console.error('Usage: node reverse-babel input.js [-o output.js] [-p plugin1,plugin2,...]');
     process.exit(1);
 }
 

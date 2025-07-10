@@ -1,11 +1,4 @@
-const ignored = [
-    'StringLiteral',
-    'NumericLiteral',
-    'BooleanLiteral',
-    'NullLiteral',
-    'BigIntLiteral',
-    'RegExpLiteral'
-];
+const { isIrrelevant } = require('../includes/utils');
 
 module.exports = function (state) {
     return {
@@ -14,10 +7,8 @@ module.exports = function (state) {
             UnaryExpression(path) {
                 if (
                     path.node.type == 'UnaryExpression' &&
-                    path.node.operator == 'void' && (
-                        ignored.includes(path.node.argument.type)
-                        || path.node.argument.type == 'TemplateLiteral' && !node.expressions.length
-                    )
+                    path.node.operator == 'void' &&
+                    isIrrelevant(path.node.argument)
                 ) {
                     state.changes++;
                     path.replaceWith({
@@ -27,5 +18,5 @@ module.exports = function (state) {
                 }
             }
         }
-    }
+    };
 };
