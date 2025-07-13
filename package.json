@@ -1,6 +1,6 @@
 {
   "name": "reverse-babel",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Transform outated babel code into readable modern code",
   "main": "index.js",
   "scripts": {

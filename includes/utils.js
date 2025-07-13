@@ -1,3 +1,5 @@
+const t = require('@babel/types');
+
 function isIrrelevant(node) {
     if (!node) return false;
 
@@ -51,13 +53,75 @@ function flattenLogical(node, operator = "||") {
     return list;
 }
 
-function getRootMember(node) {
+function flattenMember(node) {
+    const parts = [];
     while (
-        node.type == 'MemberExpression' || 
-        node.type == 'OptionalMemberExpression'
-    ) node = node.object;
-    return node;
+        node.type === 'MemberExpression' || 
+        node.type === 'OptionalMemberExpression'
+    ) {
+        parts.unshift(node.property);
+        node = node.object;
+    }
+    parts.unshift(node);
+    return parts;
 }
 
+function isNodesEquivalentCustom(a, b, check) {
+    if (check && check(a, b)) {
+        return true;
+    }
+    if (typeof a !== "object" || typeof b !== "object" || a == null || b == null) {
+        return a === b;
+    }
+    if (a.type !== b.type) {
+        return false;
+    }
+    const fields = Object.keys(t.NODE_FIELDS[a.type] || a.type);
+    const visitorKeys = t.VISITOR_KEYS[a.type];
+    for (const field of fields) {
+        const val_a = a[field];
+        const val_b = b[field];
+        if (typeof val_a !== typeof val_b) {
+            return false;
+        }
+        if (val_a == null && val_b == null) {
+            continue;
+        } else if (val_a == null || val_b == null) {
+            return false;
+        }
+        if (Array.isArray(val_a)) {
+            if (!Array.isArray(val_b)) {
+                return false;
+            }
+            if (val_a.length !== val_b.length) {
+                return false;
+            }
+            for (let i = 0; i < val_a.length; i++) {
+                if (!isNodesEquivalentCustom(val_a[i], val_b[i], check)) {
+                    return false;
+                }
+            }
+            continue;
+        }
+        if (typeof val_a === "object" && !(visitorKeys != null && visitorKeys.includes(field))) {
+            for (const key of Object.keys(val_a)) {
+                if (val_a[key] !== val_b[key]) {
+                    return false;
+                }
+            }
+            continue;
+        }
+        if (!isNodesEquivalentCustom(val_a, val_b, check)) {
+            return false;
+        }
+    }
+    return true;
+}
 
-module.exports = { isIrrelevant, isReferenceLike, flattenLogical, getRootMember };
+module.exports = {
+    isIrrelevant,
+    isReferenceLike,
+    flattenLogical,
+    flattenMember,
+    isNodesEquivalentCustom
+};

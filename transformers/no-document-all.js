@@ -3,7 +3,7 @@ const { isReferenceLike, flattenLogical } = require('../includes/utils');
 
 module.exports = function(state) {
     return {
-        name: "simplify-nullish",
+        name: "no-document-all",
         visitor: {
             LogicalExpression(path) {
                 let changed = false;
@@ -54,7 +54,7 @@ module.exports = function(state) {
                     n--;
                 }
                 if (changed && parts.length > 0) {
-                    state.changed++;
+                    state.changes++;
                     path.replaceWith(parts.reduce((acc, expr) => t.LogicalExpression(operator, acc, t.cloneNode(expr))));
                 }
             }

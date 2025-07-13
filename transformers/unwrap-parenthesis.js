@@ -1,6 +1,6 @@
 const { isIrrelevant } = require('../includes/utils');
 
-module.exports = function (state) {
+module.exports = function(state) {
     return {
         name: "unwrap-parenthesis",
         visitor: {

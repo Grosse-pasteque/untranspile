@@ -1,8 +1,8 @@
 const { isIrrelevant } = require('../includes/utils');
 
-module.exports = function (state) {
+module.exports = function(state) {
     return {
-        name: "simplify-void",
+        name: "void",
         visitor: {
             UnaryExpression(path) {
                 if (
