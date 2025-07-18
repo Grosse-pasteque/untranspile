@@ -23,7 +23,7 @@ const args = minimist(process.argv.slice(2), {
 const input = args._[0];
 if (!input) {
     console.error(`
-Usage: node reverse-babel
+Usage: node untranspile
     [input.js | 'console.log(123);']
     [--output output.js]
     [--transformers transformer1,transformer2,...]

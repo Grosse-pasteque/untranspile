@@ -1,13 +1,14 @@
 {
-  "name": "reverse-babel",
-  "version": "0.0.3",
-  "description": "Transform outated babel code into readable modern code",
+  "name": "untranspile",
+  "version": "0.0.4",
+  "description": "Transform outated babel/typescript code into readable modern code",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "babel",
+    "typescript",
     "inverse",
     "reverse",
     "obfuscation",
@@ -24,10 +25,7 @@
     "@babel/traverse": "^7.28.0",
     "@babel/types": "^7.28.0",
     "@codemod/matchers": "^1.7.1",
-    "minimist": "^1.2.8",
+    "minimist": "^1.2.8"
   },
-  "devDependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
-    "@babel/plugin-transform-optional-chaining": "^7.27.1"
-  }
+  "devDependencies": {}
 }
