@@ -1,4 +1,34 @@
 const t = require('@babel/types');
+const { NodePath } = require('@babel/traverse');
+
+Object.defineProperties(NodePath.prototype, {
+    nextPathSibling: {
+        get() {
+            const container = this.container;
+            const key = this.key;
+
+            if (!Array.isArray(container)) return null;
+
+            const nextIndex = key + 1;
+            if (nextIndex >= container.length) return null;
+
+            return this.getSibling(nextIndex);
+        }
+    },
+    previousPathSibling: {
+        get() {
+            const container = this.container;
+            const key = this.key;
+
+            if (!Array.isArray(container)) return null;
+
+            const prevIndex = key - 1;
+            if (prevIndex < 0) return null;
+
+            return this.getSibling(prevIndex);
+        }
+    }
+});
 
 function isIrrelevant(node) {
     if (!node) return false;

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-process.env.BABEL_8_BREAKING = "true";
+require('./includes/utils');
 
 const fs = require('fs');
 const path = require('path');
@@ -43,7 +43,7 @@ const plugins = selectedTransformers.map(transformer => transformer(state));
 // Transform in a loop until no changes
 let changed = true;
 let cycle = 0;
-const maxCycles = plugins.length == 1 ? 1 : 10;
+const maxCycles = 10;
 let currentCode = source;
 
 while (changed && cycle++ < maxCycles) {

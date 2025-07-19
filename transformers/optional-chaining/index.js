@@ -1,9 +1,8 @@
 const t = require("@babel/types");
-const { flattenLogical, isReferenceLike } = require('../includes/utils');
+const { flattenLogical, isReferenceLike } = require('../../includes/utils');
 
 
 function rebuildOptionalChain([ { node: root }, ...members ]) {
-    // console.log(root, members)
     let expr = t.cloneNode(root);
     for (let { node, optional } of members) {
         if (t.isMemberExpression(node)) {
@@ -28,9 +27,6 @@ function rebuildOptionalChain([ { node: root }, ...members ]) {
         }
     }
     return expr;
-}
-
-function transformChain(state, path, chain) {
 }
 
 module.exports = function(state) {

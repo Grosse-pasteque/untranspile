@@ -14,12 +14,9 @@ module.exports = function(state) {
     return {
         name: "remove-helpers",
         visitor: {
-            FunctionDeclaration(path) {
-                const { parentPath, node } = path;
-                for ()
-                isNodesEquivalentCustom(node)
-
-            }
+            // FunctionDeclaration(path) {
+            //     isNodesEquivalentCustom(path.node)
+            // }
         }
     };
 };

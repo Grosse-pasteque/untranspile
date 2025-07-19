@@ -1,3 +1,5 @@
 testing
 package-lock.json
 node_modules
+helpers.json
+objectSpread2.json

@@ -1,4 +1,4 @@
-const { isIrrelevant } = require('../includes/utils');
+const { isIrrelevant } = require('../../includes/utils');
 
 module.exports = function(state) {
     return {
